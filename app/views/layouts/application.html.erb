@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stocks</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  </head>
+  <body>
+    <%= render 'layouts/header' %>
+    <div class="flex h-screen bg-gray-100">
+      <%= render 'layouts/sidebar' %>
+      <main class="flex-grow p-4">
+        <%# <%= render "layouts/flash" %>
+        <%= yield %>
+      </main>
+    </div>
+  </body>
+</html>
+<%# <%= render 'shared/errors', resource: @transaction %>

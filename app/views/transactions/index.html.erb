@@ -1,0 +1,23 @@
+<h1>Transaction History for <%= @user.email %></h1>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Stock Symbol</th>
+      <th>Quantity</th>
+      <th>Timestamp</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @transactions.each do |transaction| %>
+      <tr>
+        <td><%= transaction.transaction_type.capitalize %></td>
+        <td><%= transaction.stock.symbol %></td>
+        <td><%= transaction.quantity %></td>
+        <td><%= transaction.timestamp %></td>
+        <td><%= transaction.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

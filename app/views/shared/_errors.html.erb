@@ -1,0 +1,14 @@
+<% if object.errors.any? %>
+  <section class="errors bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+    <strong class="font-bold">Oops! Your form could not be saved.</strong>
+    <span class="block sm:inline">
+      Please correct the following
+      <%= pluralize(object.errors.size, "error") %>:
+    </span>
+    <ul class="list-disc list-inside mt-2">
+      <% object.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

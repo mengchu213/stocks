@@ -1,0 +1,35 @@
+<h1 class="text-2xl font-bold">Sign up</h1>
+
+<%= form_with(url: sign_up_path, class: 'space-y-4') do |form| %>
+  <% if @user.errors.any? %>
+    <div class="text-red-500">
+      <h2 class="text-lg font-medium"><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+        <% @user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="flex flex-col">
+    <%= form.label :email, class: "block text-lg font-medium" %>
+    <%= form.email_field :email, value: @user.email, required: true, autofocus: true, autocomplete: "email", class: "border p-2 rounded" %>
+  </div>
+
+  <div class="flex flex-col">
+    <%= form.label :password, class: "block text-lg font-medium" %>
+    <%= form.password_field :password, required: true, autocomplete: "new-password", class: "border p-2 rounded" %>
+    <div class="text-sm text-gray-600">12 characters minimum.</div>
+  </div>
+
+  <div class="flex flex-col">
+    <%= form.label :password_confirmation, class: "block text-lg font-medium" %>
+    <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", class: "border p-2 rounded" %>
+  </div>
+
+  <div>
+    <%= form.submit "Sign up", class: "bg-blue-500 text-white p-2 rounded cursor-pointer hover:bg-blue-600" %>
+  </div>
+<% end %>

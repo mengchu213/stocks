@@ -1,0 +1,24 @@
+
+<p class="text-green-500"><%= notice %></p>
+
+<p class="font-medium">Signed in as <%= Current.user.email %></p>
+
+<h2 class="text-xl font-bold mt-4">Login and Verification</h2>
+
+<div class="mt-2">
+  <%= link_to "Change password", edit_password_path, class: "text-blue-500 hover:underline" %>
+</div>
+
+<div class="mt-2">
+  <%= link_to "Change email address", edit_identity_email_path, class: "text-blue-500 hover:underline" %>
+</div>
+
+<h2 class="text-xl font-bold mt-4">Access History</h2>
+
+<div class="mt-2">
+  <%= link_to "Devices & Sessions", sessions_path, class: "text-blue-500 hover:underline" %>
+</div>
+
+<br>
+
+<%= button_to "Log out", Current.session, method: :delete, class: "px-4 py-2 bg-red-500 text-white hover:bg-red-600 transition" %>

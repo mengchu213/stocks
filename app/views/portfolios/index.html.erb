@@ -1,0 +1,11 @@
+<p>Your current balance is: <%= Current.user.balance %></p>
+<% if @portfolios.empty? %>
+  <p>You have no stocks in your portfolio yet.</p>
+<% else %>
+  <% @portfolios.each do |portfolio| %>
+    <%= render portfolio %>
+    <p>
+      <%= link_to "Show this portfolio", portfolio %>
+    </p>
+  <% end %>
+<% end %>

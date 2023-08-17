@@ -1,0 +1,4 @@
+<h1><%= @stock["stock"][0]["name"] %> - <%= @stock["stock"][0]["symbol"] %></h1>
+<p>Price: <%= @stock["stock"][0]["price"]["currency"] %> <%= @stock["stock"][0]["price"]["amount"] %></p>
+<%= link_to "Buy", new_stock_transaction_path(@stock["stock"][0]["symbol"], transaction_type: 'buy') %>
+<%= link_to "Sell", new_stock_transaction_path(@stock["stock"][0]["symbol"], transaction_type: 'sell') %>
