@@ -1,0 +1,51 @@
+<div class="p-8 bg-white shadow-lg rounded-lg">
+  <div class="mb-8 flex justify-between items-center">
+    <p class="text-2xl font-extrabold text-gray-800">Profile</p>
+    <p class="text-green-500"><%= notice %></p>
+  </div>
+  <div class="mb-4 space-y-2">
+    <span class="text-lg text-gray-600 font-medium">Signed in as:</span>
+    <span class="text-gray-800"><%= Current.user.email %></span>
+  </div>
+  <div class="grid grid-cols-2 gap-4 mb-6">
+    <div>
+      <span class="block text-gray-600 font-medium">Email</span>
+      <span class="text-gray-800"><%= @user.email %></span>
+    </div>
+    <div>
+      <span class="block text-gray-600 font-medium">Role</span>
+      <span class="text-gray-800"><%= @user.role %></span>
+    </div>
+    <div>
+      <span class="block text-gray-600 font-medium">Status</span>
+      <span class="text-gray-800"><%= @user.status %></span>
+    </div>
+    <div>
+      <span class="block text-gray-600 font-medium">Verified</span>
+      <span class="text-gray-800"><%= @user.verified ? 'Yes' : 'No' %></span>
+    </div>
+    <div class="col-span-2">
+      <span class="block text-gray-600 font-medium">Balance</span>
+      <span class="text-gray-800"><%= @user.balance %></span>
+    </div>
+  </div>
+  <div class="mb-6">
+    <% if Current.user.role == 'Admin' %>
+      <%= turbo_frame_tag "edit_frame" do %>
+        <%= link_to 'Edit', edit_user_path(@user), class: "text-blue-500 hover:underline mr-4" %>
+      <% end %>
+    <% end %>
+    <%= link_to 'Back', users_path, class: "text-blue-500 hover:underline" %>
+  </div>
+  <div class="border-t border-gray-200 pt-6 mb-6">
+    <h2 class="text-xl font-semibold mb-4 text-gray-800">Login and Verification</h2>
+    <div class="mb-2">
+      <%= link_to "Change password", edit_password_path, class: "text-blue-500 hover:underline" %>
+    </div>
+  </div>
+  <div class="border-t border-gray-200 pt-6 mb-6">
+    <h2 class="text-xl font-semibold mb-4 text-gray-800">Access History</h2>
+    <%= link_to "Devices & Sessions", sessions_path, class: "text-blue-500 hover:underline" %>
+  </div>
+  <%= button_to "Log out", Current.session, method: :delete, class: "w-full text-center py-3 rounded bg-red-500 text-white hover:bg-red-600 focus:outline-none my-1" %>
+</div>

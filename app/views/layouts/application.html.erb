@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Stocks</title>
+    <title>Stockz</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   </head>
-  <body>
-    <%= render 'layouts/header' %>
-    <div class="flex h-screen bg-gray-100">
-      <%= render 'layouts/sidebar' %>
-      <main class="flex-grow p-4">
-        <%# <%= render "layouts/flash" %>
-        <%= yield %>
-      </main>
-    </div>
-  </body>
-</html>
-<%# <%= render 'shared/errors', resource: @transaction %>
+  <body class="bg-gray-100">
+    <body class="bg-gray-100 h-screen flex flex-col">
+      <%= render 'layouts/header' %>
+      <div class="flex flex-grow">
+        <%= render 'layouts/sidebar' %>
+        <main class="flex-grow  overflow-y-auto">
+          <%# <%= render "layouts/flash" %>
+          <%= yield %>
+        </main>
+      </div>
+    </body>
+  </html>
+  <%# <%= render 'shared/errors', resource: @transaction %>

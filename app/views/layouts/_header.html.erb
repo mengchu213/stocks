@@ -1,13 +1,19 @@
-<header class="bg-sky-800 py-4 ">
-  <nav class="container mx-auto flex justify-between items-center px-6">
-    <div class="flex items-center space-x-4">
-      <%= link_to portfolios_path, class: "flex items-center space-x-2" do %>
-        <span class="text-2xl font-bold text-white hover:text-blue-300 transition-colors">Journal - Planner</span>
-      <% end %>
-      <% if Current.user %>
-        <p class="font-medium"> <%= link_to Current.user.email, home_index_url %> </p>
-        <%= button_to "Log out", Current.session, method: :delete, class: "px-4 py-2 bg-red-500 text-white hover:bg-red-600 transition" %>
+<header class="bg-indigo-700 py-4 shadow-md">
+  <nav class="container mx-auto flex justify-between items-center ">
+    <div>
+      <%= link_to root_path, class: "flex items-center space-x-2" do %>
+        <!-- Adding the Font Awesome stock market icon -->
+        <i class="fas fa-chart-line text-white text-xl"></i>
+        <span class="text-3xl font-semibold text-white hover:text-indigo-500 transition-colors">Stockz</span>
       <% end %>
     </div>
+    <% if Current.user %>
+      <div class="flex items-center space-x-4">
+        <p class="font-medium text-white hover:text-indigo-500 transition-colors">
+          <%= link_to Current.user.email, user_path(Current.user), class: "hover:underline" %>
+        </p>
+        <%= button_to "Log out", Current.session, method: :delete, class: "px-4 py-2 bg-red-600 text-white hover:bg-red-700 transition rounded" %>
+      </div>
+    <% end %>
   </nav>
 </header>

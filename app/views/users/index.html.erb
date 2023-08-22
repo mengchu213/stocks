@@ -1,0 +1,38 @@
+<div class="container mx-auto p-8 h-screen">
+  <div class="mb-6 flex justify-between items-center">
+    <h1 class="text-3xl font-semibold">All Users</h1>
+    <%= turbo_frame_tag "new_frame" do %>
+      <%= link_to 'New User', new_user_path, class: "bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded" %>
+    <% end %>
+  </div>
+  <table class="min-w-full bg-white border rounded shadow-md">
+    <thead>
+      <tr class="bg-gray-200 text-gray-700">
+        <th class="py-2 px-4 border">Email</th>
+        <th class="py-2 px-4 border">Role</th>
+        <th class="py-2 px-4 border">Status</th>
+        <th class="py-2 px-4 border">Verified</th>
+        <th class="py-2 px-4 border">Balance</th>
+        <th class="py-2 px-4 border">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr class="text-gray-700 hover:bg-gray-100">
+          <td class="py-2 px-4 border"><%= user.email %></td>
+          <td class="py-2 px-4 border"><%= user.role %></td>
+          <td class="py-2 px-4 border"><%= user.status %></td>
+          <td class="py-2 px-4 border"><%= user.verified ? 'Yes' : 'No' %></td>
+          <td class="py-2 px-4 border"><%= user.balance %></td>
+          <td class="py-2 px-4 border flex justify-around">
+            <%= link_to 'Show', user_path(user), class: "text-blue-500 hover:text-blue-600" %> |
+            <%= turbo_frame_tag "edit_frame" do %>
+              <%= link_to 'Edit', edit_user_path(user), class: "text-green-500 hover:text-green-600" %> |
+            <% end %>
+            <%= link_to 'Delete', user_path(user), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "text-red-500 hover:text-red-600" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

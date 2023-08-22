@@ -1,0 +1,38 @@
+<%= turbo_frame_tag "edit_frame" do %>
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white shadow-lg rounded-lg w-96">
+      <div class="p-8">
+        <h1 class="text-3xl font-semibold mb-6">Edit User</h1>
+        <%= render "shared/errors", object: @user %>
+        <%= form_with(model: @user, local: true, data: { turbo: "false" }) do |form| %>
+          <div class="mb-6">
+            <%= form.label :email, class: "block text-sm font-medium text-gray-700" %>
+            <%= form.text_field :email, class: "form-input mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full", autofocus: true %>
+          </div>
+          <div class="mb-4">
+            <%= form.label :role, class: "block text-sm font-medium text-gray-700" %>
+            <%= form.select :role, ['Trader', 'Admin'], {}, class: "form-select" %>
+          </div>
+          <div class="mb-4">
+            <%= form.label :status, class: "block text-sm font-medium text-gray-700" %>
+            <%= form.select :status, ['Pending', 'Approved'], {}, class: "form-select" %>
+          </div>
+          <div class="mb-4 flex items-center">
+            <%= form.check_box :verified, class: "form-checkbox" %>
+            <%= form.label :verified, class: "text-sm font-medium text-gray-700 ml-2" %>
+          </div>
+          <div class="mb-6">
+            <%= form.label :balance, class: "block text-sm font-medium text-gray-700" %>
+            <%= form.number_field :balance, step: 0.01, class: "form-input mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full" %>
+          </div>
+          <div class="mt-6">
+            <%= form.submit "Update User", class: "cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline" %>
+          </div>
+        <% end %>
+        <div class="mt-4 text-center">
+          <%= link_to 'Back', users_path, class: "cursor-pointer text-blue-500 hover:underline" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

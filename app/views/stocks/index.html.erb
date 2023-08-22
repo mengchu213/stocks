@@ -1,10 +1,33 @@
 <%= form_tag stocks_path, method: :get, class: "mb-6" do %>
-  <%= text_field_tag :query, params[:query], placeholder: "Search by name or symbol", class: "border p-2 rounded" %>
-  <%= submit_tag "Search", name: nil, class: "bg-blue-500 text-white p-2 rounded ml-2" %>
+  <div class="relative shadow-md rounded-xl">
+    <%= text_field_tag :query, params[:query], placeholder: "Search by name or symbol", class: "border w-full p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 pl-10" %>
+    <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+      <i class="fas fa-search"></i> <!-- Font Awesome icon -->
+    </span>
+    <%= submit_tag "Search", name: nil, class: "absolute right-3 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors" %>
+  </div>
 <% end %>
 <% @stocks.each do |stock| %>
-  <%= link_to stock_path(stock['symbol']) do %>
-    <%= stock['name'] %>
-  <% end %> - <%= stock['symbol'] %> - <%= stock["price"]["currency"] %> <%= stock["price"]["amount"] %>
-  <br>
+  <% owned_quantity = @user_portfolios[stock['symbol']]&.first&.quantity || 0 %>
+  <div class="mb-4 p-4 bg-white shadow-md rounded-md">
+    <div class="flex justify-between items-center mb-2">
+      <div class="flex items-center space-x-2">
+        <%= link_to stock_path(stock['symbol']), class: "text-blue-500 hover:underline font-semibold text-lg" do %>
+          <%= stock['name'] %>
+        <% end %>
+        <span class="text-gray-500 text-sm"><%= stock['symbol'] %></span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span class="text-gray-600">PHP: <%= stock['price']['amount'] %></span>
+        <span class="text-green-500">Total: <%= owned_quantity %></span>
+        <%= turbo_frame_tag "transaction_frame" do %>
+          <%= link_to "Buy", new_stock_transaction_path(stock['symbol'], transaction_type: 'buy'), class: "bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 transition-colors", data: { turbo_frame: "transaction_frame" } %>
+          <%= link_to "Sell", new_stock_transaction_path(stock['symbol'], transaction_type: 'sell'), class: "bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition-colors", data: { turbo_frame: "transaction_frame" } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 <% end %>
+<div class="mt-6">
+  <%= paginate @stocks %>
+</div>

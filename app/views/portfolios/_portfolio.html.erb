@@ -1,5 +1,16 @@
-<!-- _portfolio.html.erb -->
-<div class="portfolio-item">
-  Stock Symbol: <%= portfolio.stock.symbol %><br>
-  Quantity: <%= portfolio.quantity %><br>
+<div class="portfolio-item bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+  <div class="flex justify-between items-center mb-2">
+    <div class="font-bold text-lg">
+      <%= portfolio.stock.name %>: 
+      <span class="text-gray-700 font-semibold">
+        <%= portfolio.stock.symbol %>
+      </span>
+    </div>
+    <span class="text-gray-600">PHP: <%= portfolio.stock.current_price %></span>
+  </div>
+  <div class="font-semibold">
+    Shares: <span class="text-gray-600"><%= portfolio.quantity %></span>
+    | 
+    Value: <span class="text-gray-600">PHP: <%= portfolio.quantity * portfolio.stock.current_price %></span>
+  </div>
 </div>

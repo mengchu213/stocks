@@ -3,8 +3,10 @@ class PortfoliosController < ApplicationController
 
   # GET /portfolios
   def index
-    @portfolios = Current.user.portfolios
+    @portfolios = Current.user.portfolios.includes(:stock).page(params[:page]).per(5) # Example: showing 10 portfolios per page
   end
+  
+  
   
   
   

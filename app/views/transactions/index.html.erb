@@ -1,23 +1,40 @@
-<h1>Transaction History for <%= @user.email %></h1>
-<table>
-  <thead>
+<h1 class="text-2xl font-bold mb-4">
+  <% if @user %>
+    Transaction History for <%= @user.email %>
+  <% else %>
+    All Transactions
+  <% end %>
+</h1>
+<table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+  <thead class="bg-gray-800 text-white">
     <tr>
-      <th>Type</th>
-      <th>Stock Symbol</th>
-      <th>Quantity</th>
-      <th>Timestamp</th>
-      <th>Date</th>
+      <th class="w-1/4 py-1 px-4">User</th>
+      <th class="w-1/4 py-1 px-4">Type</th>
+      <th class="w-1/4 py-1 px-4">Stock Symbol</th>
+      <th class="w-1/4 py-1 px-4">Quantity</th>
+      <th class="w-1/4 py-1 px-4">Timestamp</th>
     </tr>
   </thead>
   <tbody>
     <% @transactions.each do |transaction| %>
-      <tr>
-        <td><%= transaction.transaction_type.capitalize %></td>
-        <td><%= transaction.stock.symbol %></td>
-        <td><%= transaction.quantity %></td>
-        <td><%= transaction.timestamp %></td>
-        <td><%= transaction.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+      <tr class="hover:bg-gray-100">
+        <td class="border-t border-gray-200 px-4 py-1">
+          <%= transaction.user.email %>
+        </td>
+        <td class="border-t border-gray-200 px-10 py-1 ">
+          <%= transaction.transaction_type.capitalize %>
+        </td>
+        <td class="border-t border-gray-200 px-10 py-1">
+          <%= transaction.stock.symbol %>
+        </td>
+        <td class="border-t border-gray-200 px-10 py-1">
+          <%= transaction.quantity %>
+        </td>
+        <td class="border-t border-gray-200 px-4 py-1">
+          <%= transaction.timestamp.strftime('%B %d, %Y %I:%M %p') %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<%= paginate @transactions %>

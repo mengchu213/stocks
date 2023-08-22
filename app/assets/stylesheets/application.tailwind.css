@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+#sidebar.collapsed .sidebar-text {
+  @apply hidden;
+}
+
+#sidebar:not(.collapsed) .sidebar-text {
+  @apply inline;
+}

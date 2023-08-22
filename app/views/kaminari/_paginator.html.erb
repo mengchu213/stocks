@@ -1,0 +1,24 @@
+<%# Paginator for Kaminari styled with TailwindCSS %>
+<%= paginator.render do %>
+  <nav class="flex items-center justify-between text-sm">
+    <%= first_page_tag unless current_page.first? %>
+    <%= prev_page_tag unless current_page.first? %>
+    <%= next_page_tag unless current_page.last? %>
+    <%= last_page_tag unless current_page.last? %>
+    <span class="relative z-0 inline-flex rounded-md shadow-sm">
+      <% each_page do |page| %>
+        <% if page.display_tag? %>
+          <% if page.current? %>
+            <span class="bg-blue-500 text-white relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md">
+              <%= page %>
+            </span>
+          <% else %>
+            <%= link_to page, url_for(page: page), class: 'text-blue-500 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md hover:text-white hover:bg-blue-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
+          <% end %>
+        <% elsif !page.was_truncated? %>
+          <%= gap_tag %>
+        <% end %>
+      <% end %>
+    </span>
+  </nav>
+<% end %>

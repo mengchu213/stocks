@@ -4,16 +4,21 @@ class StocksController < ApplicationController
   # GET /stocks
   def index
     all_stocks = PhisixService.all_stocks['stock']
-  
+    @user_portfolios = Current.user.portfolios.includes(:stock).group_by { |p| p.stock.symbol }
+
+
+
     if params[:query].present?
       cleaned_query = params[:query].strip.downcase
-      @stocks = all_stocks.select do |stock|
+      filtered_stocks = all_stocks.select do |stock|
         stock['name'].downcase.include?(cleaned_query) || stock['symbol'].downcase.include?(cleaned_query)
       end
+      @stocks = Kaminari.paginate_array(filtered_stocks).page(params[:page]).per(10)
     else
-      @stocks = all_stocks.first(20)  # Display the first 10 stocks by default
+      @stocks = Kaminari.paginate_array(all_stocks).page(params[:page]).per(10)
     end
-  end
+end
+
   
   
 

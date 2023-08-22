@@ -63,6 +63,17 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "stocks_production"
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.delivery_method = :smtp
+config.action_mailer.smtp_settings = {
+  address: 'smtp.sendgrid.net',
+  port: 587,
+  domain: 'yourdomain.com',  # Replace with your site's domain
+  user_name: 'apikey',       # This is the string 'apikey', NOT the ID of the API key
+  password: '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',
+  authentication: 'plain',
+  enable_starttls_auto: true
+}
+
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

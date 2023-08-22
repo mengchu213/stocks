@@ -71,3 +71,7 @@ gem "authentication-zero", "~> 2.16"
 gem "bcrypt", "~> 3.1.7"
 gem 'httparty'
 gem "byebug"
+gem 'sendgrid-ruby'
+gem 'kaminari'
+
+

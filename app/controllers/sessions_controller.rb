@@ -14,10 +14,14 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
 
     if user && user.authenticate(params[:password])
-      @session = user.sessions.create!
-      cookies.signed.permanent[:session_token] = { value: @session.id, httponly: true }
+      if user.status == "Approved" # Assuming you use a `status` column with value "Approved" for approved users
+        @session = user.sessions.create!
+        cookies.signed.permanent[:session_token] = { value: @session.id, httponly: true }
 
-      redirect_to home_index_path, notice: "Signed in successfully"
+        redirect_to root_path, notice: "Signed in successfully"
+      else
+        redirect_to sign_in_path(email_hint: params[:email]), alert: "Your account is awaiting approval. Please wait for an administrator to approve your account."
+      end
     else
       redirect_to sign_in_path(email_hint: params[:email]), alert: "That email or password is incorrect"
     end

@@ -1,0 +1,23 @@
+<div class="container mx-auto p-8 h-screen">
+  <div class="mb-6">
+    <h1 class="text-3xl font-semibold">Pending Trader Signups</h1>
+  </div>
+  <table class="min-w-full bg-white border rounded shadow-md">
+    <thead>
+      <tr class="bg-gray-200 text-gray-700">
+        <th class="py-2 px-4 border">Email</th>
+        <th class="py-2 px-4 border">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @pending_traders.each do |user| %>
+        <tr class="text-gray-700 ">
+          <td class="py-2 px-4 border"><%= user.email %></td>
+          <td class="py-2 px-4 border">
+            <%= link_to 'Approve', approve_user_path(user), method: :patch, class: "bg-green-500 hover:bg-green-600 text-white py-1 px-4 rounded" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

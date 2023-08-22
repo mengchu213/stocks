@@ -1,0 +1,44 @@
+<%= turbo_frame_tag "new_frame" do %>
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white shadow-lg rounded-lg w-96">
+      <div class="p-8">
+        <h1 class="text-3xl font-semibold mb-6">Create New User</h1>
+        <%= render "shared/errors", object: @user %>
+        <%= form_with(model: @user, local: false, data: { turbo: "false" }) do |f| %>
+          <div class="mb-4">
+            <%= f.label :email, class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= f.text_field :email, class: "form-input shadow-sm border rounded-lg py-2 px-3" %>
+          </div>
+          <div class="mb-4">
+            <%= f.label :password, class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= f.password_field :password, class: "form-input shadow-sm border rounded-lg py-2 px-3" %>
+          </div>
+          <div class="mb-4">
+            <%= f.label :password_confirmation, class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= f.password_field :password_confirmation, class: "form-input shadow-sm border rounded-lg py-2 px-3" %>
+          </div>
+          <div class="mb-4">
+            <%= f.label :role, class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= f.select :role, ['Trader', 'Admin'], {}, class: "form-select shadow-sm border rounded-lg py-2 px-3" %>
+          </div>
+          <div class="mb-4">
+            <%= f.label :status, class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= f.select :status, ['Pending', 'Approved'], {}, class: "form-select shadow-sm border rounded-lg py-2 px-3" %>
+          </div>
+          <div class="mb-4 flex items-center">
+            <%= f.check_box :verified, class: "form-checkbox" %>
+            <%= f.label :verified, class: "text-gray-700 text-sm font-bold ml-2" %>
+          </div>
+          <div class="mb-4">
+            <%= f.label :balance, class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= f.number_field :balance, class: "form-input shadow-sm border rounded-lg py-2 px-3" %>
+          </div>
+          <div class="mt-6 space-x-2">
+            <%= f.submit "Create User", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+            <%= link_to 'Back', users_path, class: "text-gray-600 hover:text-gray-800 font-medium" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

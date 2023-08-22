@@ -3,9 +3,15 @@ class TransactionsController < ApplicationController
 
   # GET /transactions
   def index
-    @user = User.find(params[:user_id])
-    @transactions = @user.transactions.order(created_at: :desc)
+    if Current.user.role == 'Admin'
+      @transactions = Transaction.all.order(created_at: :desc).page(params[:page]).per(10)
+      @user = nil # Admin sees all transactions, so there's no specific user
+    else
+      @user = User.find(params[:user_id])
+      @transactions = @user.transactions.order(created_at: :desc).page(params[:page]).per(10)
+    end
   end
+  
   
 
   # GET /transactions/1
@@ -16,6 +22,7 @@ class TransactionsController < ApplicationController
   def new
     @stock_symbol = params[:stock_symbol]
     @transaction = Transaction.new(transaction_type: params[:transaction_type])
+    
   end
   
   

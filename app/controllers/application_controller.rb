@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::Base
   before_action :set_current_request_details
-  before_action :authenticate, except: [:home]
+  before_action :authenticate, except: [:landing]
+
+  def user_signed_in?
+    !!current_user
+  end
+  helper_method :user_signed_in?  
 
   private
     def authenticate

@@ -1,0 +1,21 @@
+<section class="h-screen flex flex-col relative overflow-hidden bg-gradient-to-tr from-gray-100 to-gray-300 text-indigo-900">
+  <!-- Dynamic Circle Patterns for visual aesthetics -->
+  <div class="animate-pulse absolute top-0 left-0 w-48 h-48 bg-indigo-700 rounded-full opacity-20 -translate-x-24 -translate-y-24"></div>
+  <div class="animate-pulse absolute bottom-20 right-0 w-64 h-64 bg-indigo-700 rounded-full opacity-20 translate-x-32 translate-y-32"></div>
+  <!-- Hero Section - Main Content -->
+  <div class="flex-grow flex flex-col justify-center items-center space-y-10 px-6 z-10 relative">
+    <h1 class="text-8xl font-extrabold tracking-tighter text-center leading-snug mb-4 bg-clip-text text-transparent bg-gradient-to-br from-indigo-500 to-purple-600 backdrop-blur-md bg-opacity-20 p-4 rounded-xl shadow-md">Stockz</h1>
+    <p class="text-2xl font-semibold text-center max-w-2xl leading-relaxed backdrop-blur-md bg-opacity-20 p-6 rounded-lg shadow-md transition-transform transform hover:scale-105">The future of stock trading. Dive into real-time analytics, strategic investments, and a community-driven experience.</p>
+    <%= link_to 'Get Started', sign_up_path, class: "mt-5 inline-block bg-gradient-to-br from-indigo-600 to-purple-700 hover:from-indigo-700 hover:to-purple-800 text-white px-10 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300" %>
+  </div>
+  <!-- Footer -->
+  <footer class="py-8 text-center space-y-4 bg-indigo-700 text-white">
+    <div class="flex justify-center space-x-6">
+      <a href="#" class="hover:underline hover:text-purple-400 transition-colors">About Us</a>
+      <a href="#" class="hover:underline hover:text-purple-400 transition-colors">Features</a>
+      <a href="#" class="hover:underline hover:text-purple-400 transition-colors">Contact</a>
+      <a href="#" class="hover:underline hover:text-purple-400 transition-colors">Pricing</a>
+    </div>
+    <p class="text-sm">© 2023 Stockz. All rights reserved.</p>
+  </footer>
+</section>

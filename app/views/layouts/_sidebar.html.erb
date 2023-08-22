@@ -1,27 +1,27 @@
 <% if Current.user %>
-  <aside class="bg-sky-800 w-64 flex-none">
-    <ul class="space-y-2 p-4">
-      <%= link_to portfolios_path, class: 'block text-white hover:bg-sky-600 px-4 py-2 rounded transition-colors' do %>
-        <i class="fas fa-tachometer-alt"></i> <!-- if you use Font Awesome or similar -->
+  <aside class="bg-indigo-800 w-64 flex-none flex flex-col ">
+    <ul class="space-y-3 p-4 flex-grow divide-y divide-indigo-700">
+      <%= link_to portfolios_path, class: 'block text-white hover:bg-indigo-700 px-4 py-2 rounded transition-colors flex items-center space-x-2' do %>
+        <i class="fas fa-tachometer-alt text-lg"></i>
         <span>Portfolio</span>
       <% end %>
-      <%= link_to stocks_path, class: 'block text-white hover:bg-sky-600 px-4 py-2 rounded transition-colors' do %>
-        <i class="fas fa-chart-line"></i> <!-- if you use Font Awesome or similar -->
+      <%= link_to stocks_path, class: 'block text-white hover:bg-indigo-700 px-4 py-2 rounded transition-colors flex items-center space-x-2' do %>
+        <i class="fas fa-chart-line text-lg"></i>
         <span>Market</span>
       <% end %>
       <% if current_user %>
-        <%= link_to user_transactions_path(current_user), class: 'block text-white hover:bg-sky-600 px-4 py-2 rounded transition-colors' do %>
-          <i class="fas fa-chart-line"></i> <!-- if you use Font Awesome or similar -->
+        <%= link_to user_transactions_path(current_user), class: 'block text-white hover:bg-indigo-700 px-4 py-2 rounded transition-colors flex items-center space-x-2' do %>
+          <i class="fas fa-exchange-alt text-lg"></i>
           <span>Transactions</span>
         <% end %>
       <% end %>
       <% if Current.user.role == "Admin" %>
-        <%= link_to "#", class: 'block text-white hover:bg-sky-600 px-4 py-2 rounded transition-colors' do %>
-          <i class="fas fa-users"></i>
+        <%= link_to users_path, class: 'block text-white hover:bg-indigo-700 px-4 py-2 rounded transition-colors flex items-center space-x-2' do %>
+          <i class="fas fa-users text-lg"></i>
           <span>Users</span>
         <% end %>
-        <%= link_to "#", class: 'block text-white hover:bg-sky-600 px-4 py-2 rounded transition-colors' do %>
-          <i class="fas fa-check-circle"></i>
+        <%= link_to approvals_users_path, class: 'block text-white hover:bg-indigo-700 px-4 py-2 rounded transition-colors flex items-center space-x-2' do %>
+          <i class="fas fa-check-circle text-lg"></i>
           <span>Approvals</span>
         <% end %>
       <% end %>

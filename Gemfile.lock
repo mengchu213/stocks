@@ -95,6 +95,18 @@ GEM
       reline (>= 0.3.6)
     jsbundling-rails (1.1.2)
       railties (>= 6.0.0)
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -176,6 +188,9 @@ GEM
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
     rspec-support (3.12.1)
+    ruby_http_client (3.5.5)
+    sendgrid-ruby (6.6.2)
+      ruby_http_client (~> 3.4)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -216,10 +231,12 @@ DEPENDENCIES
   debug
   httparty
   jsbundling-rails
+  kaminari
   puma (~> 5.0)
   rails (~> 7.0.7)
   redis (~> 4.0)
   rspec-rails (~> 6.0.0)
+  sendgrid-ruby
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails

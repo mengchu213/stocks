@@ -9,11 +9,8 @@ class RegistrationsController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      session_record = @user.sessions.create!
-      cookies.signed.permanent[:session_token] = { value: session_record.id, httponly: true }
-
       send_email_verification
-      redirect_to root_path, notice: "Welcome! You have signed up successfully"
+      redirect_to root_path, notice: "Thanks for signing up! Your registration is pending approval."
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,4 +24,6 @@ class RegistrationsController < ApplicationController
     def send_email_verification
       UserMailer.with(user: @user).email_verification.deliver_later
     end
+
+ 
 end

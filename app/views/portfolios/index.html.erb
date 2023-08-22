@@ -1,11 +1,36 @@
-<p>Your current balance is: <%= Current.user.balance %></p>
-<% if @portfolios.empty? %>
-  <p>You have no stocks in your portfolio yet.</p>
-<% else %>
-  <% @portfolios.each do |portfolio| %>
-    <%= render portfolio %>
-    <p>
-      <%= link_to "Show this portfolio", portfolio %>
-    </p>
-  <% end %>
-<% end %>
+<div class="container mx-auto p-4 md:p-8 min-h-screen">
+  <!-- Balance and Investments Details -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+    <!-- Current Balance -->
+    <div class="p-5 rounded shadow-md bg-green-50">
+      <p class="text-sm font-semibold text-green-600">Current Balance</p>
+      <p class="text-2xl font-bold text-green-700">PHP: <%= number_with_precision(Current.user.balance, precision: 2) %></p>
+    </div>
+    <!-- Investments Value -->
+    <div class="p-5 rounded shadow-md bg-blue-50">
+      <p class="text-sm font-semibold text-blue-600">Investments Value</p>
+      <p class="text-2xl font-bold text-blue-700">PHP: <%= number_with_precision(total_stocks_value(@portfolios), precision: 2) %></p>
+    </div>
+    <!-- Total Balance -->
+    <div class="p-5 rounded shadow-md bg-purple-50">
+      <p class="text-sm font-semibold text-purple-600">Total Balance</p>
+      <p class="text-2xl font-bold text-purple-700">PHP: <%= number_with_precision(total_balance(Current.user.balance, total_stocks_value(@portfolios)), precision: 2) %></p>
+    </div>
+  </div>
+  <!-- Portfolios List -->
+  <div class="mt-6">
+    <% if portfolios_empty?(@portfolios) %>
+      <div class="p-5 rounded shadow-md bg-gray-100 text-center">
+        <p class="text-gray-500 italic">You have no stocks in your portfolio yet.</p>
+      </div>
+    <% else %>
+      <% @portfolios.each do |portfolio| %>
+        <%= render portfolio %>
+      <% end %>
+      <!-- Kaminari Pagination -->
+      <div class="mt-6">
+        <%= paginate @portfolios %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -12,7 +12,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, allow_nil: true, length: { minimum: 6 }
   validates :role, presence: true, inclusion: { in: ['Trader', 'Admin'] }
-  validates :status, presence: true, inclusion: { in: ['approved', 'pending'] }
+  validates :status, presence: true, inclusion: { in: ['Approved', 'Pending'] }
 
   before_validation if: -> { email.present? } do
     self.email = email.downcase.strip
