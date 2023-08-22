@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
         @session = user.sessions.create!
         cookies.signed.permanent[:session_token] = { value: @session.id, httponly: true }
 
-        redirect_to root_path, notice: "Signed in successfully"
+        redirect_to portfolios_path, notice: "Signed in successfully"
       else
         redirect_to sign_in_path(email_hint: params[:email]), alert: "Your account is awaiting approval. Please wait for an administrator to approve your account."
       end

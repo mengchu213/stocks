@@ -1,17 +1,18 @@
 class HomeController < ApplicationController
-  skip_before_action :authenticate, only: [:landing]
-  before_action :redirect_if_logged_in, only: [:landing]
+  skip_before_action :authenticate, only: [:landing, :index]
+
   def index
+    if current_user
+      redirect_to portfolios_path
+    else
+      render :landing
+    end
   end
+  
+
   def profile
   end
+
   def landing
-     
-  end
-
-  private
-
-  def redirect_if_logged_in
-    redirect_to portfolios_path if user_signed_in? 
   end
 end

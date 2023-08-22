@@ -1,19 +1,32 @@
 <header class="bg-indigo-700 py-4 shadow-md">
-  <nav class="container mx-auto flex justify-between items-center ">
+  <nav class="container mx-auto flex justify-between items-center">
     <div>
-      <%= link_to root_path, class: "flex items-center space-x-2" do %>
-        <!-- Adding the Font Awesome stock market icon -->
-        <i class="fas fa-chart-line text-white text-xl"></i>
-        <span class="text-3xl font-semibold text-white hover:text-indigo-500 transition-colors">Stockz</span>
+      <% if current_user %>
+        <%= link_to portfolios_path, class: "flex items-center space-x-2" do %>
+          <!-- Adding the Font Awesome stock market icon -->
+          <i class="fas fa-chart-line text-white text-xl"></i>
+          <span class="text-3xl font-semibold text-white hover:text-indigo-500 transition-colors">Stockz</span>
+        <% end %>
+      <% else %>
+        <%= link_to landing_path, class: "flex items-center space-x-2" do %>
+          <!-- Adding the Font Awesome stock market icon -->
+          <i class="fas fa-chart-line text-white text-xl"></i>
+          <span class="text-3xl font-semibold text-white hover:text-indigo-500 transition-colors">Stockz</span>
+        <% end %>
       <% end %>
     </div>
-    <% if Current.user %>
-      <div class="flex items-center space-x-4">
+    <div class="flex items-center space-x-4">
+      <!-- Conditional Rendering for Logged Out Users -->
+      <% unless current_user %>
+        <%= link_to "Sign in", sign_in_path, class: "text-white hover:text-indigo-500 transition px-4 py-2 rounded bg-indigo-600 hover:bg-indigo-800" %>
+        <%= link_to "Sign up", sign_up_path, class: "text-white hover:text-indigo-500 transition px-4 py-2 rounded bg-indigo-500 hover:bg-indigo-800" %>
+      <% end %>
+      <% if current_user %>
         <p class="font-medium text-white hover:text-indigo-500 transition-colors">
-          <%= link_to Current.user.email, user_path(Current.user), class: "hover:underline" %>
+          <%= link_to current_user.email, user_path(current_user), class: "hover:underline" %>
         </p>
         <%= button_to "Log out", Current.session, method: :delete, class: "px-4 py-2 bg-red-600 text-white hover:bg-red-700 transition rounded" %>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </nav>
 </header>
