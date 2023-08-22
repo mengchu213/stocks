@@ -39,7 +39,7 @@ config.action_mailer.smtp_settings = {
   port: 587,
   domain: 'localhost',  # Replace with your site's domain
   user_name: 'apikey',       # This is the string 'apikey', NOT the ID of the API key
-  password: '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',
+  password: ENV['SENDGRID_API_KEY'],
   authentication: 'plain',
   enable_starttls_auto: true
 }

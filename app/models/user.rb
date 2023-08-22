@@ -10,9 +10,12 @@ class User < ApplicationRecord
   has_many :sessions, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password, allow_nil: true, length: { minimum: 6 }
-  validates :role, presence: true, inclusion: { in: ['Trader', 'Admin'] }
-  validates :status, presence: true, inclusion: { in: ['Approved', 'Pending'] }
+  validates :password_digest, presence: true
+  validates :role, presence: true, inclusion: { in: ["Trader", "Admin"] } 
+  validates :status, presence: true, inclusion: { in: ["Pending", "Approved"] } 
+  validates :verified, inclusion: { in: [true, false] }
+  validates :balance, presence: true, numericality: { greater_than_or_equal_to: 0 }
+
 
   before_validation if: -> { email.present? } do
     self.email = email.downcase.strip
