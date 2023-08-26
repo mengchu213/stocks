@@ -8,7 +8,6 @@ class HomeController < ApplicationController
       render :landing
     end
   end
-  
 
   def profile
   end

@@ -6,5 +6,5 @@ class Session < ApplicationRecord
     self.ip_address = Current.ip_address
   end
   validates :user_id, presence: true
-  validates :user_agent, :ip_address, presence: true
+
 end

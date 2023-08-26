@@ -12,4 +12,5 @@ module PortfoliosHelper
   def total_balance(user_balance, total_stocks_value)
     user_balance + total_stocks_value
   end
+  
 end

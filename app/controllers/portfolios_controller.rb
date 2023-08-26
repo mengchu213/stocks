@@ -1,14 +1,10 @@
 class PortfoliosController < ApplicationController
   before_action :set_portfolio, only: %i[ show edit update destroy ]
 
-  # GET /portfolios
   def index
-    @portfolios = Current.user.portfolios.includes(:stock).page(params[:page]).per(5) # Example: showing 10 portfolios per page
+    @portfolios = current_user_portfolios.page(params[:page]).per(7)
+    @all_portfolios = current_user_portfolios
   end
-  
-  
-  
-  
   
 
   # GET /portfolios/1
@@ -26,7 +22,7 @@ class PortfoliosController < ApplicationController
 
   # POST /portfolios
   def create
-    @portfolio = Portfolio.new(portfolio_params)
+    @portfolio = current_user_portfolios.build(portfolio_params)
 
     if @portfolio.save
       redirect_to @portfolio, notice: "Portfolio was successfully created."
@@ -51,13 +47,16 @@ class PortfoliosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_portfolio
-      @portfolio = Portfolio.find(params[:id])
+      @portfolio = Portfolio.includes(:stock).find(params[:id]) # added includes(:stock) for eager loading if needed
     end
 
-    # Only allow a list of trusted parameters through.
     def portfolio_params
-      params.require(:portfolio).permit(:quantity, :user_id, :stock_id)
+      params.require(:portfolio).permit(:quantity, :stock_id) # removed :user_id from permitted params
+    end
+
+    def current_user_portfolios
+      Current.user.portfolios.includes(:stock)
     end
 end

@@ -33,12 +33,13 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_caching = false
+config.action_mailer.delivery_method = :smtp
 config.action_mailer.smtp_settings = {
   address: 'smtp.sendgrid.net',
   port: 587,
-  domain: 'localhost',  # Replace with your site's domain
-  user_name: 'apikey',       # This is the string 'apikey', NOT the ID of the API key
+  domain: Rails.env.development? ? 'localhost' : 'yourdomain.com',  # Adjust as necessary
+  user_name: 'apikey',
   password: ENV['SENDGRID_API_KEY'],
   authentication: 'plain',
   enable_starttls_auto: true

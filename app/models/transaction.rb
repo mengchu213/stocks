@@ -14,15 +14,18 @@ def stock_has_current_price
   end
 end
 
-  def user_has_sufficient_funds
+def user_has_sufficient_funds
+  return unless user && stock&.current_price
 
-    total_cost = stock.current_price * quantity
-    user_balance = user.balance || 0.0
-    
-    if user_balance < total_cost
-      errors.add(:base, "Insufficient funds")
-    end
+  total_cost = stock.current_price * quantity
+  user_balance = user.balance || 0.0
+  
+  if user_balance < total_cost
+    errors.add(:base, "Insufficient funds")
   end
+end
+
+
   
   
   

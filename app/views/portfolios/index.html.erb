@@ -9,12 +9,12 @@
     <!-- Investments Value -->
     <div class="p-5 rounded shadow-md bg-blue-50">
       <p class="text-sm font-semibold text-blue-600">Investments Value</p>
-      <p class="text-2xl font-bold text-blue-700">PHP: <%= number_with_precision(total_stocks_value(@portfolios), precision: 2) %></p>
+      <p class="text-2xl font-bold text-blue-700">PHP: <%= number_with_precision(total_stocks_value(@all_portfolios), precision: 2) %></p>
     </div>
     <!-- Total Balance -->
     <div class="p-5 rounded shadow-md bg-purple-50">
       <p class="text-sm font-semibold text-purple-600">Total Balance</p>
-      <p class="text-2xl font-bold text-purple-700">PHP: <%= number_with_precision(total_balance(Current.user.balance, total_stocks_value(@portfolios)), precision: 2) %></p>
+      <p class="text-2xl font-bold text-purple-700">PHP: <%= number_with_precision(total_balance(Current.user.balance, total_stocks_value(@all_portfolios)), precision: 2) %></p>
     </div>
   </div>
   <!-- Portfolios List -->
