@@ -55,6 +55,8 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
+  gem 'webmock'
+  gem 'rails-controller-testing'
 end
 
 group :development do
@@ -71,7 +73,6 @@ end
 
 gem "authentication-zero", "~> 2.16"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-gem "bcrypt", "~> 3.1.7"
 gem 'httparty'
 gem "byebug"
 gem 'sendgrid-ruby'

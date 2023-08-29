@@ -18,7 +18,8 @@
         <span class="text-gray-500 text-sm"><%= stock['symbol'] %></span>
       </div>
       <div class="flex items-center space-x-4">
-        <span class="text-gray-600">PHP: <%= stock['price']['amount'] %></span>
+        <span class="text-gray-600">PHP: <%= stock['price']&.dig('amount') %>
+        </span>
         <span class="text-green-500">Total: <%= owned_quantity %></span>
         <%= turbo_frame_tag "transaction_frame" do %>
           <%= link_to "Buy", new_stock_transaction_path(stock['symbol'], transaction_type: 'buy'), class: "bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 transition-colors", data: { turbo_frame: "transaction_frame" } %>
@@ -29,5 +30,5 @@
   </div>
 <% end %>
 <div class="mt-6">
-  <%= paginate @stocks %>
+  <%= paginate @stocks if @stocks.respond_to?(:total_pages) %>
 </div>

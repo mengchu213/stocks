@@ -1,21 +1,37 @@
-# spec/factories/users.rb
-
 FactoryBot.define do
   sequence(:user_email) { |n| "testuser#{n}@example.com" } # To ensure unique email
 
   factory :user do
     email { generate(:user_email) }
-    password { "password123" } 
-    password_confirmation { "password123" } # Since `has_secure_password` is used
+    password { "password123" }
+    password_confirmation { "password123" }
     role { ["Trader", "Admin"].sample }
-    status { ["Pending", "Approved"].sample }
+    status { "Approved" }  # Set to Approved by default
     verified { [true, false].sample }
-    balance { rand(1000..5000).to_f.round(2) } # Generates a random float between 1000 and 5000
+    balance { rand(1000..5000).to_f.round(2) }
 
-    # Optional: If you want to create associations (like transactions, portfolios etc.) with the user.
-    # after(:create) do |user|
-    #   create_list(:transaction, 3, user: user) # assuming you have a transaction factory
-    #   create_list(:portfolio, 3, user: user)   # assuming you have a portfolio factory
-    # end
+    trait :pending do
+      status { "Pending" }
+    end
+
+    trait :approved do
+      status { "Approved" }
+    end
+
+    trait :trader do
+      role { "Trader" }
+    end
+
+    trait :admin do
+      role { "Admin" }
+    end
+
+    trait :verified do
+      verified { true }
+    end
+
+    trait :unverified do
+      verified { false }
+    end
   end
 end

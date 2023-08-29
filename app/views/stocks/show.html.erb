@@ -1,19 +1,23 @@
 <div class="container mx-auto p-8 max-w-3xl h-screen">
   <!-- Stock Info -->
   <div class="bg-white shadow-md rounded-lg p-6">
-    <h1 class="text-2xl font-bold mb-4">
-      <%= @stock["stock"][0]["name"] %> - <%= @stock["stock"][0]["symbol"] %>
-    </h1>
-    <p class="text-lg text-gray-700 mb-6">
-      Price: 
-      <span class="font-semibold">
-        <%= @stock["stock"][0]["price"]["currency"] %> <%= @stock["stock"][0]["price"]["amount"] %>
-      </span>
-    </p>
-    <!-- Action Buttons -->
-    <div class="flex space-x-4">
-      <%= link_to "Buy", new_stock_transaction_path(@stock["stock"][0]["symbol"], transaction_type: 'buy'), class: "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors" %>
-      <%= link_to "Sell", new_stock_transaction_path(@stock["stock"][0]["symbol"], transaction_type: 'sell'), class: "bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors" %>
-    </div>
+    <% if @stock && @stock["stock"] && @stock["stock"][0] %>
+      <h1 class="text-2xl font-bold mb-4">
+        <%= @stock["stock"][0]["name"] %> - <%= @stock["stock"][0]["symbol"] %>
+      </h1>
+      <p class="text-lg text-gray-700 mb-6">
+        Price: 
+        <span class="font-semibold">
+          <%= @stock["stock"][0]["price"]["currency"] %> <%= @stock["stock"][0]["price"]["amount"] %>
+        </span>
+      </p>
+      <!-- Action Buttons -->
+      <div class="flex space-x-4">
+        <%= link_to "Buy", new_stock_transaction_path(@stock["stock"][0]["symbol"], transaction_type: 'buy'), class: "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors" %>
+        <%= link_to "Sell", new_stock_transaction_path(@stock["stock"][0]["symbol"], transaction_type: 'sell'), class: "bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors" %>
+      </div>
+    <% else %>
+      <p>Stock information is not available at this time. Please try again later.</p>
+    <% end %>
   </div>
 </div>

@@ -1,54 +1,25 @@
 class StocksController < ApplicationController
-  before_action :set_stock, only: %i[ show edit update destroy ]
+  before_action :set_stock, only: %i[ show  update  ]
 
 
   def index
-    @stocks = FetchStocksService.new(query: params[:query], page: params[:page]).call
-    @user_portfolios = Current.user.portfolios.includes(:stock).group_by { |p| p.stock.symbol }
-
-    unless @stocks
+    stocks_response = FetchStocksService.new(query: params[:query], page: params[:page]).call
+    
+    if stocks_response
+      @stocks = stocks_response
+      @user_portfolios = Current.user.portfolios.includes(:stock).group_by { |p| p.stock.symbol }
+    else
+      @stocks = []
       flash[:alert] = "There was an error fetching stocks. Please try again later."
     end
   end
+  
 
 
   def show
   end
 
   
-  
-
-
-  def new
-    @stock = Stock.new
-  end
-
-  def edit
-  end
-
-  def create
-    @stock = Stock.new(stock_params)
-
-    if @stock.save
-      flash[:notice] = "Stock successfully created."
-      redirect_to stocks_path
-    else
-      render :new
-    end
-  end
-
-  def update
-    if @stock.update(stock_params)
-      redirect_to @stock, notice: "Stock was successfully updated.", status: :see_other
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @stock.destroy
-    redirect_to stocks_url, notice: "Stock was successfully destroyed.", status: :see_other
-  end
 
 
   private

@@ -7,19 +7,6 @@ class PortfoliosController < ApplicationController
   end
   
 
-  # GET /portfolios/1
-  def show
-  end
-
-  # GET /portfolios/new
-  def new
-    @portfolio = Portfolio.new
-  end
-
-  # GET /portfolios/1/edit
-  def edit
-  end
-
   # POST /portfolios
   def create
     @portfolio = current_user_portfolios.build(portfolio_params)

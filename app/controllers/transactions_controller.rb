@@ -12,14 +12,14 @@ class TransactionsController < ApplicationController
     end
   end
 
-  def show; end
+
 
   def new
     @stock_symbol = params[:stock_symbol]
     @transaction = Transaction.new(transaction_type: params[:transaction_type])
   end
 
-  def edit; end
+ 
 
   def create
     stock = StockFetcherOrCreateService.new(params[:stock_symbol]).call
@@ -45,18 +45,7 @@ class TransactionsController < ApplicationController
     end
   end
 
-  def update
-    if @transaction.update(transaction_params)
-      redirect_to @transaction, notice: "Transaction was successfully updated."
-    else
-      render :edit
-    end
-  end
-
-  def destroy
-    @transaction.destroy
-    redirect_to transactions_url, notice: "Transaction was successfully destroyed."
-  end
+ 
 
   private
 

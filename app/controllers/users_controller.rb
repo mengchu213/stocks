@@ -61,10 +61,11 @@ class UsersController < ApplicationController
   def find_user
     @user = User.find(params[:id])
   end
-
   def user_params
-    params.require(:user).permit(:email, :role, :status, :verified, :balance, :password, :password_confirmation)
+    params.permit(:email, :password, :password_confirmation, :role, :status, :verified, :balance)
   end
+  
+ 
 
   def check_admin
     redirect_to root_path, alert: 'Not authorized!' unless Current.user.role == 'Admin'
