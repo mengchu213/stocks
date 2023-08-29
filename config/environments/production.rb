@@ -61,13 +61,15 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "stocks_production"
+  config.action_mailer.default_url_options = { host: 'stockz-r93b.onrender.com' }
 
   config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address: 'smtp.sendgrid.net',
     port: 587,
-    domain: Rails.env.development? ? 'localhost' : 'https://stockz-r93b.onrender.com/',  # Adjust as necessary
+    domain: 'stockz-r93b.onrender.com',
+
     user_name: 'apikey',
     password: ENV['SENDGRID_API_KEY'],
     authentication: 'plain',
