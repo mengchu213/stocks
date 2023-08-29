@@ -5,3 +5,13 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+unless User.exists?(email: 'admin@example.com')
+  User.create!(
+    email: 'admin@example.com',
+    password_digest: BCrypt::Password.create('123456'), 
+    role: 'Admin', # 
+    status: 'Approved', 
+    verified: true,
+    balance: 10000.0
+  )
+end
