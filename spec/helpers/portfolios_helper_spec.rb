@@ -1,4 +1,3 @@
-# spec/helpers/portfolios_helper_spec.rb
 require 'rails_helper'
 
 RSpec.describe PortfoliosHelper, type: :helper do
@@ -13,7 +12,7 @@ RSpec.describe PortfoliosHelper, type: :helper do
     end
 
     it "returns the total value of all stocks in portfolios" do
-      expect(helper.total_stocks_value(portfolios)).to eq(800) # (2 * 100) + (3 * 200)
+      expect(helper.total_stocks_value(portfolios)).to eq(800)
     end
   end
 

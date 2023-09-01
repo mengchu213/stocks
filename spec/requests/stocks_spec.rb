@@ -1,11 +1,9 @@
-# spec/requests/stocks_spec.rb
 require 'rails_helper'
 
 RSpec.describe "Stocks", type: :request do
   let!(:user) { create(:user) }
   let!(:stock) { build(:stock, current_price: 100) }
 
-  # Mock authentication before each test
   before do
     allow_any_instance_of(ApplicationController).to receive(:authenticate).and_return(true)
     allow(Current).to receive(:user).and_return(user)
@@ -36,6 +34,32 @@ RSpec.describe "Stocks", type: :request do
         expect(flash[:alert]).to eq("There was an error fetching stocks. Please try again later.")
       end
     end
+
+    context "when fetching all stocks fails" do
+      before do
+        allow(PhisixService).to receive(:all_stocks).and_raise("Some Error")
+      end
+
+      it "sets a flash alert" do
+        get stocks_path
+        expect(flash[:alert]).to eq("There was an error fetching stocks. Please try again later.")
+      end
+    end
+
+    context "when a query parameter is present" do
+      let(:filtered_stock) { build(:stock, symbol: 'AAPL') }
+
+      before do
+        allow(FetchStocksService).to receive(:new).and_return(instance_double(FetchStocksService, call: [filtered_stock]))
+      end
+
+      it "filters stocks based on the query" do
+        get stocks_path, params: { query: 'AAPL' }
+        expect(assigns(:stocks)).to eq([filtered_stock])
+      end
+    end
+  
+    
     
   end
 
@@ -64,4 +88,5 @@ RSpec.describe "Stocks", type: :request do
       end
     end
   end
+
 end

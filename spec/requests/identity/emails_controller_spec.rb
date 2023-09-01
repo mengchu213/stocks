@@ -1,55 +1,79 @@
-# require 'rails_helper'
+require 'rails_helper'
 
-# RSpec.describe Identity::EmailsController, type: :controller do
-#   let(:user) { create(:user) } # Assuming you have a user factory
+RSpec.describe Identity::EmailsController, type: :request do
+  let(:user) { create(:user, password: 'password123', password_confirmation: 'password123', email: 'old@example.com') }
 
-#   before do
-#     # Simulate a logged in user
-#      sign_in(user)
-#     allow(controller).to receive(:current_user).and_return(user)
-#   end
+  before do
+    # Mock Current.user
+    allow(Current).to receive(:user).and_return(user) 
+    # Mock authentication check
+    allow_any_instance_of(ApplicationController).to receive(:authenticate).and_return(true)
+  end
 
-#   describe "GET #edit" do
-#     it "renders the edit template" do
-#       get :edit
-#       expect(response).to render_template(:edit)
-#     end
-#   end
+  describe '#edit' do
+    context 'when user is authenticated' do
+      before do
+        get edit_identity_email_path
+      end
 
-#   describe "PUT #update" do
-#     let(:valid_email) { "new_email@example.com" }
-#     let(:invalid_email) { "" } # or whatever is invalid for your model
+      it 'returns http success' do
+        expect(response).to have_http_status(:success)
+      end
+    end
+  end
+
+  describe '#update' do
+    context 'when the password is incorrect' do
+      before do
+        patch identity_email_path, params: { current_password: 'wrongpassword', email: 'new@example.com' }
+      end
+
+      it 'redirects with an alert message' do
+        expect(response).to redirect_to(edit_identity_email_path)
+        expect(flash[:alert]).to eq("The password you entered is incorrect")
+      end
+    end
+
+    context 'when the email is successfully updated' do
+      before do
+        allow(UserMailer).to receive_message_chain(:with, :email_verification, :deliver_later)
+        patch identity_email_path, params: { current_password: 'password123', email: 'new@example.com' }
+      end
+
+      it 'redirects to the root path with a notice' do
+        expect(response).to redirect_to(root_path)
+        expect(flash[:notice]).to eq("Your email has been changed")
+      end
+      
+      it 'sends an email verification' do
+        expect(UserMailer).to have_received(:with).with(user: user)
+      end
+    end
     
-#     context "with invalid password" do
-#       it "redirects with an alert" do
-#         put :update, params: { current_password: "wrongpassword", email: valid_email }
-#         expect(response).to redirect_to(edit_identity_email_path)
-#         expect(flash[:alert]).to eq("The password you entered is incorrect")
-#       end
-#     end
+    context 'when the email remains the same' do
+      before do
+        allow(UserMailer).to receive_message_chain(:with, :email_verification, :deliver_later)
+        patch identity_email_path, params: { current_password: 'password123', email: 'old@example.com' }
+      end
 
-#     context "with valid password" do
-#       before do
-#         allow(user).to receive(:authenticate).and_return(true)
-#       end
+      it 'redirects to the root path' do
+        expect(response).to redirect_to(root_path)
+      end
 
-#       context "with valid email" do
-#         it "updates the user email and redirects" do
-#           expect {
-#             put :update, params: { current_password: "correctpassword", email: valid_email }
-#             user.reload
-#           }.to change(user, :email).to(valid_email)
-#           expect(response).to redirect_to(root_path)
-#         end
-#       end
+      it 'does not send an email verification' do
+        expect(UserMailer).not_to have_received(:with)
+      end
+    end
 
-#       context "with invalid email" do
-#         it "renders edit with status :unprocessable_entity" do
-#           put :update, params: { current_password: "correctpassword", email: invalid_email }
-#           expect(response).to render_template(:edit)
-#           expect(response.status).to eq(422)
-#         end
-#       end
-#     end
-#   end
-# end
+    context 'when the email update fails' do
+      before do
+        allow_any_instance_of(User).to receive(:update).and_return(false)
+        patch identity_email_path, params: { current_password: 'password123', email: 'invalid_email' }
+      end
+
+      it 'renders the edit view with an error status' do
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
+end

@@ -1,13 +1,9 @@
-# spec/models/user_spec.rb
-
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-  # Setting up the factory
   let(:user) { build(:user) }
 
-  # Testing validations
   context 'validations' do
     it 'is valid with valid attributes' do
       expect(user).to be_valid
@@ -64,7 +60,6 @@ RSpec.describe User, type: :model do
       expect(user).to_not be_valid
     end
 
-    # Add more validation checks similarly...
   end
 
   # Testing associations
@@ -79,14 +74,13 @@ RSpec.describe User, type: :model do
       expect(association.macro).to eq :has_many
     end
 
-    # ... more association tests as needed
   end
 
   # Testing callbacks
   context 'callbacks' do
     it 'downcases the email before validation' do
       user.email = 'Test@Example.com'
-      user.valid? # Triggers the before_validation callback
+      user.valid?
       expect(user.email).to eq('test@example.com')
     end
 
@@ -98,8 +92,6 @@ RSpec.describe User, type: :model do
     end
 
     it 'deletes other sessions if password digest changes' do
-      # Here you'd set up a scenario where a user has multiple sessions.
-      # Then change the password and see if other sessions than the current are destroyed.
     end
   end
 end

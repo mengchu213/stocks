@@ -1,4 +1,3 @@
-# spec/mailers/user_mailer_spec.rb
 require "rails_helper"
 
 RSpec.describe UserMailer, type: :mailer do
@@ -14,7 +13,6 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the body' do
-      # Modify according to your mailer's body content.
       expect(mail.body.encoded).to match(user.email)
     end
   end
@@ -29,7 +27,6 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the body' do
-      # Modify according to your mailer's body content.
       expect(mail.body.encoded).to match(user.email)
     end
   end
@@ -44,7 +41,6 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the body' do
-      # Modify according to your mailer's body content.
       expect(mail.body.encoded).to match(user.email)
     end
   end

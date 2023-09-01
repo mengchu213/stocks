@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_path(@user), notice: 'User was successfully updated.'
     else
-      render :edit
+      render :edit 
     end
   end
 
@@ -44,7 +44,6 @@ class UsersController < ApplicationController
   def approve
     user = User.find(params[:id])
     if user.update(status: 'Approved')
-      # Send approval email
       UserMailer.with(user: user).approval_notification.deliver_now
   
       redirect_to approvals_users_path, notice: "Trader approved and notified successfully!"
@@ -62,8 +61,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
   def user_params
-    params.permit(:email, :password, :password_confirmation, :role, :status, :verified, :balance)
+    params.require(:user).permit(:email, :password, :password_confirmation, :role, :status, :verified, :balance)
   end
+  
   
  
 

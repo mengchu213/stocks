@@ -3,13 +3,11 @@
     <div>
       <% if current_user %>
         <%= link_to portfolios_path, class: "flex items-center space-x-2" do %>
-          <!-- Adding the Font Awesome stock market icon -->
           <i class="fas fa-chart-line text-white text-xl"></i>
           <span class="text-3xl font-semibold text-white hover:text-indigo-500 transition-colors">Stockz</span>
         <% end %>
       <% else %>
         <%= link_to landing_path, class: "flex items-center space-x-2" do %>
-          <!-- Adding the Font Awesome stock market icon -->
           <i class="fas fa-chart-line text-white text-xl"></i>
           <span class="text-3xl font-semibold text-white hover:text-indigo-500 transition-colors">Stockz</span>
         <% end %>

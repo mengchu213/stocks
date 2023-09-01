@@ -1,4 +1,3 @@
-# spec/models/current_spec.rb
 require 'rails_helper'
 
 RSpec.describe Current, type: :model do

@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
 
     if user && user.authenticate(params[:password])
-      if user.status == "Approved" # Assuming you use a `status` column with value "Approved" for approved users
+      if user.status == "Approved"
         @session = user.sessions.create!
         cookies.signed.permanent[:session_token] = { value: @session.id, httponly: true }
 

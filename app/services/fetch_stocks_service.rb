@@ -17,6 +17,8 @@ class FetchStocksService
     end
 
     Kaminari.paginate_array(filtered_stocks).page(page).per(10)
-  
+  rescue StandardError => e
+    Rails.logger.error("Error fetching stocks: #{e.message}")
+    nil
   end
 end

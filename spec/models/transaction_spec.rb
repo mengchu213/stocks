@@ -1,5 +1,3 @@
-# spec/models/transaction_spec.rb
-
 require 'rails_helper'
 
 RSpec.describe Transaction, type: :model do
@@ -30,7 +28,7 @@ RSpec.describe Transaction, type: :model do
     it 'is not valid without a stock current price' do
       stock = build(:stock, current_price: nil)
       transaction = build(:transaction, stock: stock)
-      transaction.valid? # This triggers the custom validation
+      transaction.valid?
       
       expect(transaction.errors[:base]).to include("Stock doesn't have a current price")
     end
@@ -38,7 +36,7 @@ RSpec.describe Transaction, type: :model do
     
 
     it "is not valid if user doesn't have sufficient funds" do
-      transaction = build(:transaction, user: user, stock: stock, quantity: 20) # This would need $2000
+      transaction = build(:transaction, user: user, stock: stock, quantity: 20)
       expect(transaction).not_to be_valid
       expect(transaction.errors.messages[:base]).to include("Insufficient funds")
     end
@@ -48,7 +46,7 @@ RSpec.describe Transaction, type: :model do
     let(:user) { create(:user) }
     let(:stock) { create(:stock) }
 
-    subject { build(:transaction, user: user, stock: stock) }  # build the transaction with the user and stock
+    subject { build(:transaction, user: user, stock: stock) }
 
     it { should belong_to(:user).required(true) }
     it { should belong_to(:stock).required(true) }
@@ -62,7 +60,7 @@ RSpec.describe Transaction, type: :model do
       transaction = create(:transaction, user: user, stock: stock, quantity: 5)
       transaction.process_transaction
       user.reload
-      expect(user.balance).to eq(500.0) # $1000 - (5 * $100)
+      expect(user.balance).to eq(500.0)
     end
   end
 end

@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
-  has_many :transactions
-  has_many :portfolios
-  has_many :stocks, through: :portfolios
+  has_many :transactions, dependent: :destroy
+  has_many :portfolios, dependent: :destroy
+  has_many :stocks, through: :portfolios, dependent: :destroy
 
 
   has_many :email_verification_tokens, dependent: :destroy

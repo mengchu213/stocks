@@ -43,9 +43,26 @@ RSpec.describe "Sessions", type: :request do
       it "does not create a session and redirects to sign in" do
         post sign_in_path, params: { email: user.email, password: 'wrongpassword' }
         expect(response).to redirect_to(sign_in_path(email_hint: user.email))
-
       end
     end
+
+    context "with non-existent email" do
+      it "does not create a session and redirects to sign in" do
+        post sign_in_path, params: { email: 'nonexistent@example.com', password: 'password123' }
+        expect(response).to redirect_to(sign_in_path(email_hint: 'nonexistent@example.com'))
+      end
+      
+   end
+
+   context "with a user awaiting approval" do
+      let(:unapproved_user) { create(:user, status: "Pending", password: 'password123', password_confirmation: 'password123') }
+
+      it "does not create a session and redirects to sign in" do
+        post sign_in_path, params: { email: 'nonexistent@example.com', password: 'password123' }
+        expect(response).to redirect_to(sign_in_path(email_hint: 'nonexistent@example.com'))
+      end
+      
+   end
   end
 
   describe "DELETE /sessions/:id" do
@@ -56,9 +73,12 @@ RSpec.describe "Sessions", type: :request do
         sign_in user
       end
 
-      
-      
-    end
+      it "destroys the session and redirects" do
+        delete session_path(session.id)
+        expect(response).to redirect_to(sign_in_path)
+      end  
+   end
+
 
     context "when not authenticated" do
       it "redirects to sign in" do

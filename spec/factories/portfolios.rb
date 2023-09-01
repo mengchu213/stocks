@@ -1,4 +1,3 @@
-# spec/factories/portfolios.rb
 FactoryBot.define do
   factory :portfolio, class: Portfolio do
     association :user

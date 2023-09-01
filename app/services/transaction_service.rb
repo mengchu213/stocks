@@ -46,7 +46,6 @@ class TransactionService
     portfolio = @user.portfolios.find_or_initialize_by(stock_id: @transaction.stock_id)
     portfolio.quantity = portfolio.quantity.to_i + quantity
   
-    # Check if there are negative stocks after selling
     if portfolio.quantity < 0
       raise ActiveRecord::Rollback, "Transaction failed: Not enough stocks to sell"
     end

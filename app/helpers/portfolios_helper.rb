@@ -1,4 +1,3 @@
-# app/helpers/portfolios_helper.rb
 module PortfoliosHelper
 
   def total_stocks_value(portfolios)

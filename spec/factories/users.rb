@@ -1,12 +1,12 @@
 FactoryBot.define do
-  sequence(:user_email) { |n| "testuser#{n}@example.com" } # To ensure unique email
+  sequence(:user_email) { |n| "testuser#{n}@example.com" }
 
   factory :user do
     email { generate(:user_email) }
     password { "password123" }
     password_confirmation { "password123" }
     role { ["Trader", "Admin"].sample }
-    status { "Approved" }  # Set to Approved by default
+    status { "Approved" }
     verified { [true, false].sample }
     balance { rand(1000..5000).to_f.round(2) }
 

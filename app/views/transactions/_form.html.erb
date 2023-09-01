@@ -10,7 +10,8 @@
         <h2 class="text-xl font-bold">Transaction</h2>
       </div>
       <%= render "shared/errors", object: @transaction %>
-      <%= form_with(model: @transaction, local: false, data: { turbo: "false" }, url: stock_transactions_path(stock_symbol: @stock_symbol), class: "space-y-4") do |form| %>
+      <%= @stock_symbol %>
+      <%= form_with(model: @transaction, local: false, data: { turbo: "false" }, url: stock_transactions_path(@stock_symbol), class: "space-y-4") do |form| %>
         <%= form.hidden_field :transaction_type %>
         <div>
           <%= form.label :quantity, class: "block text-gray-700 text-sm font-bold mb-2" %>

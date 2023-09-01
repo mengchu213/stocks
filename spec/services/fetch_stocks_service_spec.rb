@@ -1,4 +1,3 @@
-# spec/services/fetch_stocks_service_spec.rb
 require 'rails_helper'
 
 RSpec.describe FetchStocksService do
@@ -11,7 +10,6 @@ RSpec.describe FetchStocksService do
         'stock' => [
           {'name' => 'SampleStock', 'symbol' => 'SS'},
           {'name' => 'AnotherStock', 'symbol' => 'AS'},
-          # ... add more sample stocks as needed
         ]
       }
     end
@@ -32,6 +30,5 @@ RSpec.describe FetchStocksService do
       end
     end
 
-    # Add more contexts or examples as needed...
   end
 end
