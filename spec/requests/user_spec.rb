@@ -81,7 +81,7 @@ RSpec.describe "Users", type: :request do
     end
   end
 
-  describe "PUT /approve/:id" do
+  describe "PATCH /approve/:id" do
     context "when user is approved successfully" do
       before do
         allow(Current).to receive(:user).and_return(admin)
@@ -89,7 +89,7 @@ RSpec.describe "Users", type: :request do
       end
 
       it "approves the user and sends a notification" do
-        put approve_user_path(pending_user)
+        patch approve_user_path(pending_user)
 
         expect(pending_user.reload.status).to eq('Approved')
         expect(flash[:notice]).to eq("Trader approved and notified successfully!")
@@ -99,7 +99,7 @@ RSpec.describe "Users", type: :request do
     context "when there's an error approving the user" do
       before do
         allow_any_instance_of(User).to receive(:update).and_return(false)
-        put approve_user_path(pending_user)
+        patch approve_user_path(pending_user)
       end
     
       it "shows an error" do

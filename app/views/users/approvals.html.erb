@@ -14,7 +14,9 @@
         <tr class="text-gray-700 ">
           <td class="py-2 px-4 border"><%= user.email %></td>
           <td class="py-2 px-4 border">
-            <%= link_to 'Approve', approve_user_path(user), method: :patch, class: "bg-green-500 hover:bg-green-600 text-white py-1 px-4 rounded" %>
+            <%= form_for user, url: approve_user_path(user), method: :patch do |f| %>
+              <%= f.submit "Approve", class: "cursor-pointer bg-green-500 hover:bg-green-600 text-white py-1 px-4 rounded" %>
+            <% end %>
           </td>
         </tr>
       <% end %>

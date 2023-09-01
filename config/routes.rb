@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       get :approvals
     end
     member do
-      put :approve
+      patch :approve
     end
   end
   
